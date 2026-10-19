@@ -5,10 +5,12 @@ import time
 HOST = "0.0.0.0"
 PORT = 5000
 
+# si es necesario ejecutar termux-wake-lock
+
 def vibrar(veces):
     for _ in range(veces):
         subprocess.run(["termux-vibrate", "-d", str(150)])
-        time.sleep(0.3)
+        time.sleep(0.15)
 
 def ejecutar_senal(senal):
     if senal == "SENAL_A":

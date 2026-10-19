@@ -13,4 +13,4 @@ def enviar_senal(senal):
     print("Señal enviada:", senal)
 
 
-enviar_senal("SENAL_A")
+enviar_senal("SENAL_C")
