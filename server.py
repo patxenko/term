@@ -10,7 +10,7 @@ PORT = 5000
 def vibrar(veces):
     for _ in range(veces):
         subprocess.run(["termux-vibrate", "-d", str(150)])
-        time.sleep(0.15)
+        time.sleep(0.1)
 
 def ejecutar_senal(senal):
     if senal == "SENAL_A":
