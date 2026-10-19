@@ -1,0 +1,56 @@
+import socket
+import subprocess
+import time
+
+HOST = "0.0.0.0"
+PORT = 5000
+
+def vibrar(veces):
+    for _ in range(veces):
+        subprocess.run(["termux-vibrate", "-d", str(150)])
+        time.sleep(0.3)
+
+def ejecutar_senal(senal):
+    if senal == "SENAL_A":
+        print("Ejecutando acción A")
+        vibrar(1)
+
+    elif senal == "SENAL_B":
+        print("Ejecutando acción B")
+        vibrar(1)
+
+    elif senal == "SENAL_C":
+        print("Ejecutando acción C")
+        vibrar(1)
+
+    elif senal == "SENAL_D":
+        print("Ejecutando acción D")
+        vibrar(1)
+
+    else:
+        print("Señal desconocida:", senal)
+
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as servidor:
+    servidor.setsockopt(
+        socket.SOL_SOCKET,
+        socket.SO_REUSEADDR,
+        1
+    )
+
+    servidor.bind((HOST, PORT))
+    servidor.listen()
+
+    print(f"Escuchando en puerto {PORT}...")
+
+    while True:
+        conexion, direccion = servidor.accept()
+
+        with conexion:
+            print("Conexión desde:", direccion)
+
+            with conexion.makefile("r", encoding="utf-8") as mensajes:
+                for linea in mensajes:
+                    senal = linea.strip()
+                    print("Recibido:", senal)
+                    ejecutar_senal(senal)
